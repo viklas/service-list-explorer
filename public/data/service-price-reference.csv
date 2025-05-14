@@ -1,0 +1,28 @@
+Service,Unit,Median,Min,Max,Level
+Nursing care,Hour,150,125,179,2
+Registered nurse,Hour,160,144,186,3
+Enrolled nurse,Hour,140,120,163,3
+Nursing assistant,Hour,110,92,143,3
+Allied health and other therapeutic services,Hour,195,160,220,2
+Allied health therapy assistant,Hour,122,105,167,3
+Counsellor or Psychotherapist,Hour,208,160,225,3
+Dietitian or Nutritionist,Hour,200,165,219,3
+Exercise physiologist,Hour,190,165,219,3
+Occupational therapist,Hour,200,174,220,3
+Physiotherapist,Hour,185,160,210,3
+Podiatrist,Hour,180,153,208,3
+Psychologist,Hour,228,210,250,3
+Social worker,Hour,200,163,238,3
+Speech pathologist,Hour,208,187,236,3
+Care management,Hour,120,80,150,2
+Restorative care management,Hour,150,120,173,2
+Personal care,Hour,100,85,115,2
+Social support and community engagement,Hour,99,82,110,2
+Therapeutic services for independent living,Hour,165,140,220,2
+Remedial masseuse,Hour,150,134,206,3
+Respite,Hour,99,85,112,2
+Transport,Trip,70,40,97,2
+Domestic assistance,Hour,95,83,109,2
+Home maintenance and repairs,Hour,103,85,120,2
+Meal delivery,Meal,15,11,22,3
+Meal preparation,Hour,97,82,110,3
