@@ -55,12 +55,30 @@ export default function ServiceListExplorer() {
 
   const highlightText = (text) => {
     if (!search || !text) return text;
-    const regex = new RegExp(`(${search})`, "gi");
-    const parts = text.split(regex);
-    return parts.map((part, i) =>
-      regex.test(part) ? <mark key={i} className="bg-yellow-200">{part}</mark> : part
-    );
+  
+    const safeSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(safeSearch, 'gi');
+    const parts = [];
+    let lastIndex = 0;
+  
+    let match;
+    while ((match = regex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(text.slice(lastIndex, match.index));
+      }
+      parts.push(
+        <mark key={match.index} className="bg-yellow-200">{match[0]}</mark>
+      );
+      lastIndex = regex.lastIndex;
+    }
+  
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex));
+    }
+  
+    return parts;
   };
+  
 
   const getPrice = (item) => {
     const exactLevel3 = prices.find(p => p.Level === 3 && p.Service.toLowerCase() === item.serviceText?.toLowerCase());
@@ -142,8 +160,19 @@ export default function ServiceListExplorer() {
   return (
     <div className="p-6 space-y-6 bg-gradient-to-b from-slate-50 to-white min-h-screen">
       <h1 className="text-3xl font-bold text-slate-800">Support at Home - Service List Explorer</h1>
-      <p className="text-sm text-slate-600">Average prices are extracted from indicative pricing from the <a href="https://www.health.gov.au/sites/default/files/2025-03/summary-of-indicative-support-at-home-prices_2.pdf" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline hover:text-blue-800">Department of Health Pricing Summary (PDF)</a>.</p>
-
+      <p className="text-sm text-slate-600">
+        Average prices are extracted from indicative pricing from the{' '}
+        <a
+          href="https://www.health.gov.au/sites/default/files/2025-03/summary-of-indicative-support-at-home-prices_2.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline hover:text-blue-800"
+        >
+          Department of Health Pricing Summary (PDF)
+        </a>
+        .
+      </p>
+  
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 text-sm font-medium text-slate-700">
         <div>
           <label className="block mb-1">🔍 Search</label>
@@ -156,36 +185,70 @@ export default function ServiceListExplorer() {
         </div>
         <div>
           <label className="block mb-1">📚 Group</label>
-          <select className="border border-slate-300 p-2 rounded-lg w-full" value={group} onChange={(e) => setGroup(e.target.value)}>
-            {groups.map((g) => <option key={g} value={g}>{g}</option>)}
+          <select
+            className="border border-slate-300 p-2 rounded-lg w-full"
+            value={group}
+            onChange={(e) => setGroup(e.target.value)}
+          >
+            {groups.map((g) => (
+              <option key={g} value={g}>
+                {g}
+              </option>
+            ))}
           </select>
         </div>
         <div>
           <label className="block mb-1">🏷️ Category</label>
-          <select className="border border-slate-300 p-2 rounded-lg w-full" value={category} onChange={(e) => setCategory(e.target.value)}>
-            {categories.map((c) => <option key={c} value={c}>{c}</option>)}
+          <select
+            className="border border-slate-300 p-2 rounded-lg w-full"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            {categories.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
           </select>
         </div>
         <div>
           <label className="block mb-1">🧩 Service Type</label>
-          <select className="border border-slate-300 p-2 rounded-lg w-full" value={serviceType} onChange={(e) => setServiceType(e.target.value)}>
-            {["All", ...new Set(data.map(d => d.serviceTypeText).filter(Boolean))].map((t) => (
-              <option key={t} value={t}>{t}</option>
+          <select
+            className="border border-slate-300 p-2 rounded-lg w-full"
+            value={serviceType}
+            onChange={(e) => setServiceType(e.target.value)}
+          >
+            {["All", ...new Set(data.map((d) => d.serviceTypeText).filter(Boolean))].map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
             ))}
           </select>
         </div>
         <div>
           <label className="block mb-1">⚖️ Unit Type</label>
-          <select className="border border-slate-300 p-2 rounded-lg w-full" value={unit} onChange={(e) => setUnit(e.target.value)}>
-            {unitTypes.map((u) => <option key={u} value={u}>{u}</option>)}
+          <select
+            className="border border-slate-300 p-2 rounded-lg w-full"
+            value={unit}
+            onChange={(e) => setUnit(e.target.value)}
+          >
+            {unitTypes.map((u) => (
+              <option key={u} value={u}>
+                {u}
+              </option>
+            ))}
           </select>
         </div>
       </div>
-
+  
       <div className="flex justify-end gap-4 text-sm text-slate-600">
         <label className="flex items-center gap-2">
           Sort by:
-          <select value={sortField} onChange={(e) => setSortField(e.target.value)} className="border p-1 rounded">
+          <select
+            value={sortField}
+            onChange={(e) => setSortField(e.target.value)}
+            className="border p-1 rounded"
+          >
             <option value="serviceText">Name</option>
             <option value="price">Price</option>
             <option value="serviceId">Service ID</option>
@@ -198,27 +261,45 @@ export default function ServiceListExplorer() {
           {sortAsc ? "⬆️ Asc" : "⬇️ Desc"}
         </button>
       </div>
-
+  
       <div className="space-y-12">
-        {groupedSorted.map(group => (
+        {groupedSorted.map((group) => (
           <div key={group.name}>
-            <h2 className="text-2xl font-semibold text-red-800 mb-4">{group.name}</h2>
+            <h2 className="text-2xl font-semibold text-red-800 mb-4">
+              <span className="inline">{highlightText(group.name)}</span>
+            </h2>
             <div className="space-y-6">
-              {group.subgroups.map(sub => (
+              {group.subgroups.map((sub) => (
                 <div key={sub.type} className="mb-8">
-                  <h3 className="text-xl font-semibold text-slate-700 mb-2">{sub.type}</h3>
+                  <h3 className="text-xl font-semibold text-slate-700 mb-2">
+                    <span className="inline">{highlightText(sub.type)}</span>
+                  </h3>
                   {SERVICE_TYPE_DESCRIPTIONS[sub.type] && (
-                    <p className="text-sm text-slate-400 mb-4 max-w-4xl">{SERVICE_TYPE_DESCRIPTIONS[sub.type]}</p>
+                    <p className="text-sm text-slate-400 mb-4 max-w-4xl">
+                      {SERVICE_TYPE_DESCRIPTIONS[sub.type]}
+                    </p>
                   )}
                   <div className="space-y-6">
-                    {sub.services.map(item => {
+                    {sub.services.map((item) => {
                       const price = getPrice(item);
                       return (
-                        <div key={item.serviceId} className="bg-white border border-slate-200 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
-                          <button className="w-full text-left p-4 flex justify-between items-center" onClick={() => setExpandedId(expandedId === item.serviceId ? null : item.serviceId)}>
+                        <div
+                          key={item.serviceId}
+                          className="bg-white border border-slate-200 rounded-2xl shadow-md hover:shadow-lg transition-shadow"
+                        >
+                          <button
+                            className="w-full text-left p-4 flex justify-between items-center"
+                            onClick={() =>
+                              setExpandedId(
+                                expandedId === item.serviceId ? null : item.serviceId
+                              )
+                            }
+                          >
                             <div>
                               <div className="text-lg font-semibold text-blue-800 flex items-center gap-3">
-                                {highlightText(item.serviceText)}
+                                <span className="inline">
+                                  {highlightText(item.serviceText)}
+                                </span>
                                 {price && (
                                   <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">
                                     ${price.Median.toFixed(0)} avg
@@ -231,7 +312,9 @@ export default function ServiceListExplorer() {
                                 )}
                               </div>
                               <div className="text-sm text-slate-500 italic">
-                                Group: {highlightText(item.serviceGroupText)} • Type: {highlightText(item.serviceTypeText)}
+                                <span className="inline">
+                                  {highlightText(item.participantContributionCategory)}
+                                </span>
                               </div>
                             </div>
                             <span className="text-blue-500 text-xl">
@@ -242,7 +325,16 @@ export default function ServiceListExplorer() {
                             <div className="px-6 pb-6 flex flex-col md:flex-row gap-6">
                               <div className="flex-1 space-y-3">
                                 <div className="text-sm text-slate-700">
-                                  <strong>Unit:</strong> {highlightText(item.unitType)} • <strong>Category:</strong> {highlightText(item.participantContributionCategory)}
+                                  <strong>Unit:</strong>{' '}
+                                  <span className="inline">
+                                    {highlightText(item.unitType)}
+                                  </span>
+                                </div>
+                                <div className="text-xs text-slate-400">
+                                  Service ID:{' '}
+                                  <span className="inline">
+                                    {highlightText(item.serviceId)}
+                                  </span>
                                 </div>
                                 <div className="text-xs text-slate-400">
                                   Service ID: {highlightText(item.serviceId)}
