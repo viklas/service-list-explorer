@@ -355,9 +355,6 @@ export default function ServiceListExplorer() {
                                     {highlightText(item.serviceId)}
                                   </span>
                                 </div>
-                                <div className="text-xs text-slate-400">
-                                  Service ID: {highlightText(item.serviceId)}
-                                </div>
                                 {item.classifications?.length > 0 && (
                                   <div className="text-sm">
                                     <strong className="text-slate-700">Classifications:</strong>
