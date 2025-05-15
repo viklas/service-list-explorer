@@ -2,8 +2,6 @@
 
 A lightweight, interactive React-based explorer for navigating aged care service types, units, categories, and indicative pricing—based on the **Support at Home** reform data.
 
-![screenshot](https://github.com/viklas/service-list-explorer/assets/banner-placeholder.png)
-
 > ⚡ Powered by React, TailwindCSS, and Fuse.js for fast search and filtering.
 
 ---
