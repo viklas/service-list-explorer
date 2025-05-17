@@ -109,7 +109,7 @@ export default function ActivitiesExplorer() {
         {/* Grouped List */}
         {Object.entries(grouped).map(([cat, itemsInCat]) => (
           <div key={cat} className="mb-8">
-            <h2 className="text-2xl font-semibold text-slate-800 mb-4">{cat}</h2>
+            <h2 className="text-2xl font-semibold text-red-800 mb-4">{cat}</h2>
             <ul className="space-y-4">
               {itemsInCat.map((item, idx) => (
                 <li
