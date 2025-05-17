@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import ServiceExplorer from './components/ServiceListExplorer';
 import ActivitiesExplorer from './components/ActivitiesExplorer';
 import RestorativeExplorer from './components/RestorativeExplorer';
+import FundingSourcesExplorer from './components/FundingSourcesExplorer';
 
 const tabs = [
   { key: 'services', label: 'Service List' },
   { key: 'activities', label: 'Care Management' },
   { key: 'restorative', label: 'Restorative Care Management' },
+  { key: 'funding', label: 'Funding Sources' },
 ];
 
 export default function App() {
@@ -32,6 +34,8 @@ export default function App() {
         {activeTab === 'services' && <ServiceExplorer />}
         {activeTab === 'activities' && <ActivitiesExplorer />}
         {activeTab === 'restorative' && <RestorativeExplorer />}
+        {activeTab === 'funding' && <FundingSourcesExplorer />}
+
       </div>
       <a
         href="https://github.com/viklas/service-list-explorer"

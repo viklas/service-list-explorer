@@ -1,0 +1,387 @@
+[
+    {
+      "fundingSourceCode": "AS",
+      "fundingSourceText": "Assistive Technology specified needs",
+      "entryCategories": [
+        {
+          "entryCategoryCode": "AS",
+          "entryCategoryText": "Assistive technology specified needs"
+        }
+      ],
+      "classifications": [
+        {
+          "classificationCode": "510",
+          "classificationText": "SaH Specified needs - Assistance Dogs",
+          "classificationType": "Ongoing"
+        }
+      ],
+      "budgetClaimingSequence": [
+        {
+          "priority": 1,
+          "budgetTypeCode": "CU",
+          "budgetTypeText": "Commonwealth unspent funds"
+        },
+        {
+          "priority": 2,
+          "budgetTypeCode": "HC",
+          "budgetTypeText": "Home care account"
+        },
+        {
+          "priority": 3,
+          "budgetTypeCode": "AS",
+          "budgetTypeText": "Assistive technology specified needs"
+        }
+      ]
+    },
+    {
+      "fundingSourceCode": "AT",
+      "fundingSourceText": "Assistive technology",
+      "entryCategories": [
+        {
+          "entryCategoryCode": "AT",
+          "entryCategoryText": "Assistive technology"
+        },
+        {
+          "entryCategoryCode": "HC",
+          "entryCategoryText": "Home care"
+        }
+      ],
+      "classifications": [
+        {
+          "classificationCode": "514",
+          "classificationText": "SaH Assistive Technology Low",
+          "classificationType": "Short Term"
+        },
+        {
+          "classificationCode": "515",
+          "classificationText": "SaH Assistive Technology Medium",
+          "classificationType": "Short Term"
+        },
+        {
+          "classificationCode": "516",
+          "classificationText": "SaH Assistive Technology High",
+          "classificationType": "Short Term"
+        },
+        {
+          "classificationCode": "55",
+          "classificationText": "SaH Assistive Technology Zero Funding",
+          "classificationType": "Short Term"
+        }
+      ],
+      "budgetClaimingSequence": [
+        {
+          "priority": 1,
+          "budgetTypeCode": "CU",
+          "budgetTypeText": "Commonwealth unspent funds"
+        },
+        {
+          "priority": 2,
+          "budgetTypeCode": "HC",
+          "budgetTypeText": "Home care account"
+        },
+        {
+          "priority": 3,
+          "budgetTypeCode": "AT",
+          "budgetTypeText": "Assistive technology"
+        }
+      ]
+    },
+    {
+      "fundingSourceCode": "CM",
+      "fundingSourceText": "Care management",
+      "entryCategories": [
+        {
+          "entryCategoryCode": "HC",
+          "entryCategoryText": "Home care"
+        },
+        {
+          "entryCategoryCode": "ON",
+          "entryCategoryText": "Home support ongoing"
+        }
+      ],
+      "classifications": [
+        {
+          "classificationCode": "501",
+          "classificationText": "SaH Classification 1",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "502",
+          "classificationText": "SaH Classification 2",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "503",
+          "classificationText": "SaH Classification 3",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "504",
+          "classificationText": "SaH Classification 4",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "505",
+          "classificationText": "SaH Classification 5",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "506",
+          "classificationText": "SaH Classification 6",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "507",
+          "classificationText": "SaH Classification 7",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "508",
+          "classificationText": "SaH Classification 8",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "522",
+          "classificationText": "Grandfather HCP Level 1",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "523",
+          "classificationText": "Grandfather HCP Level 2",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "524",
+          "classificationText": "Grandfather HCP Level 3",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "525",
+          "classificationText": "Grandfather HCP Level 4",
+          "classificationType": "Ongoing"
+        }
+      ],
+      "budgetClaimingSequence": [
+        {
+          "priority": 1,
+          "budgetTypeCode": "CM",
+          "budgetTypeText": "Care management"
+        }
+      ]
+    },
+    {
+      "fundingSourceCode": "EL",
+      "fundingSourceText": "End of life Pathway",
+      "entryCategories": [
+        {
+          "entryCategoryCode": "EL",
+          "entryCategoryText": "End of life pathway"
+        }
+      ],
+      "classifications": [
+        {
+          "classificationCode": "513",
+          "classificationText": "SaH End-of-Life Pathway",
+          "classificationType": "Short Term"
+        }
+      ],
+      "budgetClaimingSequence": [
+        {
+          "priority": 1,
+          "budgetTypeCode": "EL",
+          "budgetTypeText": "End of life pathway"
+        },
+        {
+          "priority": 2,
+          "budgetTypeCode": "CU",
+          "budgetTypeText": "Commonwealth unspent funds"
+        },
+        {
+          "priority": 3,
+          "budgetTypeCode": "HC",
+          "budgetTypeText": "Home care account"
+        }
+      ]
+    },
+    {
+      "fundingSourceCode": "HM",
+      "fundingSourceText": "Home modifications",
+      "entryCategories": [
+        {
+          "entryCategoryCode": "HC",
+          "entryCategoryText": "Home care"
+        },
+        {
+          "entryCategoryCode": "HM",
+          "entryCategoryText": "Home modifications"
+        }
+      ],
+      "classifications": [
+        {
+          "classificationCode": "517",
+          "classificationText": "SaH Home Modifications Low",
+          "classificationType": "Short Term"
+        },
+        {
+          "classificationCode": "518",
+          "classificationText": "SaH Home Modifications Medium",
+          "classificationType": "Short Term"
+        },
+        {
+          "classificationCode": "519",
+          "classificationText": "SaH Home Modifications High",
+          "classificationType": "Short Term"
+        },
+        {
+          "classificationCode": "56",
+          "classificationText": "SaH Home Modifications Zero Funding",
+          "classificationType": "Short Term"
+        }
+      ],
+      "budgetClaimingSequence": [
+        {
+          "priority": 1,
+          "budgetTypeCode": "CU",
+          "budgetTypeText": "Commonwealth unspent funds"
+        },
+        {
+          "priority": 2,
+          "budgetTypeCode": "HC",
+          "budgetTypeText": "Home care account"
+        },
+        {
+          "priority": 3,
+          "budgetTypeCode": "HM",
+          "budgetTypeText": "Home modifications"
+        }
+      ]
+    },
+    {
+      "fundingSourceCode": "ON",
+      "fundingSourceText": "Home Support Ongoing",
+      "entryCategories": [
+        {
+          "entryCategoryCode": "HC",
+          "entryCategoryText": "Home care"
+        },
+        {
+          "entryCategoryCode": "ON",
+          "entryCategoryText": "Home support ongoing"
+        }
+      ],
+      "classifications": [
+        {
+          "classificationCode": "501",
+          "classificationText": "SaH Classification 1",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "502",
+          "classificationText": "SaH Classification 2",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "503",
+          "classificationText": "SaH Classification 3",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "504",
+          "classificationText": "SaH Classification 4",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "505",
+          "classificationText": "SaH Classification 5",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "506",
+          "classificationText": "SaH Classification 6",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "507",
+          "classificationText": "SaH Classification 7",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "508",
+          "classificationText": "SaH Classification 8",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "522",
+          "classificationText": "Grandfather HCP Level 1",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "523",
+          "classificationText": "Grandfather HCP Level 2",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "524",
+          "classificationText": "Grandfather HCP Level 3",
+          "classificationType": "Ongoing"
+        },
+        {
+          "classificationCode": "525",
+          "classificationText": "Grandfather HCP Level 4",
+          "classificationType": "Ongoing"
+        }
+      ],
+      "budgetClaimingSequence": [
+        {
+          "priority": 1,
+          "budgetTypeCode": "ON",
+          "budgetTypeText": "Home support ongoing"
+        },
+        {
+          "priority": 2,
+          "budgetTypeCode": "CU",
+          "budgetTypeText": "Commonwealth unspent funds"
+        },
+        {
+          "priority": 3,
+          "budgetTypeCode": "HC",
+          "budgetTypeText": "Home care account"
+        }
+      ]
+    },
+    {
+      "fundingSourceCode": "RC",
+      "fundingSourceText": "Restorative care pathway",
+      "entryCategories": [
+        {
+          "entryCategoryCode": "RC",
+          "entryCategoryText": "Restorative care pathway"
+        }
+      ],
+      "classifications": [
+        {
+          "classificationCode": "512",
+          "classificationText": "SaH Restorative Care Pathway",
+          "classificationType": "Short Term"
+        }
+      ],
+      "budgetClaimingSequence": [
+        {
+          "priority": 1,
+          "budgetTypeCode": "RC",
+          "budgetTypeText": "Restorative care pathway"
+        },
+        {
+          "priority": 2,
+          "budgetTypeCode": "CU",
+          "budgetTypeText": "Commonwealth unspent funds"
+        },
+        {
+          "priority": 3,
+          "budgetTypeCode": "HC",
+          "budgetTypeText": "Home care account"
+        }
+      ]
+    }
+  ]
+  
