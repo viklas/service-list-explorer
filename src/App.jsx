@@ -3,12 +3,15 @@ import ServiceExplorer from './components/ServiceListExplorer';
 import ActivitiesExplorer from './components/ActivitiesExplorer';
 import RestorativeExplorer from './components/RestorativeExplorer';
 import FundingSourcesExplorer from './components/FundingSourcesExplorer';
+import ServiceHierarchyExplorer from './components/ServiceHierarchyExplorer';
+
 
 const tabs = [
   { key: 'services', label: 'Service List' },
   { key: 'activities', label: 'Care Management' },
   { key: 'restorative', label: 'Restorative Care Management' },
   { key: 'funding', label: 'Funding Sources' },
+  { key: 'wiki', label: 'Wiki' },
 ];
 
 export default function App() {
@@ -82,6 +85,7 @@ export default function App() {
         {activeTab === 'activities' && <ActivitiesExplorer />}
         {activeTab === 'restorative' && <RestorativeExplorer />}
         {activeTab === 'funding' && <FundingSourcesExplorer />}
+        {activeTab === 'wiki' && <ServiceHierarchyExplorer />}
       </div>
     </div>
   );
