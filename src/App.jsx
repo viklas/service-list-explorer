@@ -4,6 +4,7 @@ import ActivitiesExplorer from './components/ActivitiesExplorer';
 import RestorativeExplorer from './components/RestorativeExplorer';
 import FundingSourcesExplorer from './components/FundingSourcesExplorer';
 import ServiceHierarchyExplorer from './components/ServiceHierarchyExplorer';
+import BudgetCodeExplorer from './components/BudgetCodeExplorer';
 
 
 const tabs = [
@@ -11,6 +12,7 @@ const tabs = [
   { key: 'activities', label: 'Care Management' },
   { key: 'restorative', label: 'Restorative Care Management' },
   { key: 'funding', label: 'Funding Sources' },
+  { key: 'budget', label: 'Budget Codes' },
   { key: 'wiki', label: 'Wiki' },
 ];
 
@@ -85,6 +87,7 @@ export default function App() {
         {activeTab === 'activities' && <ActivitiesExplorer />}
         {activeTab === 'restorative' && <RestorativeExplorer />}
         {activeTab === 'funding' && <FundingSourcesExplorer />}
+        {activeTab === 'budget' && <BudgetCodeExplorer />}
         {activeTab === 'wiki' && <ServiceHierarchyExplorer />}
       </div>
     </div>

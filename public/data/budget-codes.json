@@ -1,0 +1,726 @@
+{
+  "entitlementCodes": [
+    {
+      "budgetItemCode": "AS_RATE",
+      "budgetItemText": "Assistive technology specified needs",
+      "rates": [
+        {
+          "rate": 2000,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "AT_RATE_H",
+      "budgetItemText": "Assistive technology - high",
+      "rates": [
+        {
+          "rate": 15000,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "AT_RATE_L",
+      "budgetItemText": "Assistive technology - low",
+      "rates": [
+        {
+          "rate": 500,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "AT_RATE_M",
+      "budgetItemText": "Assistive technology - medium",
+      "rates": [
+        {
+          "rate": 2000,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "AT_REMOTE",
+      "budgetItemText": "AT-HM supplement",
+      "rates": [
+        {
+          "rate": 50,
+          "frequency": null,
+          "allocationPeriod": "PERCENTAGE",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "CM_CHARACT",
+      "budgetItemText": "Care management supplement",
+      "rates": [
+        {
+          "rate": 120,
+          "frequency": 1,
+          "allocationPeriod": "HOUR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "CM_PERCENT",
+      "budgetItemText": "Care management client",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "CU_FUND",
+      "budgetItemText": "Commonwealth unspent funds transfer",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "DEM_COG",
+      "budgetItemText": "Dementia cognition supplement",
+      "rates": [
+        {
+          "rate": 11.5,
+          "frequency": null,
+          "allocationPeriod": "PERCENTAGE",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "DEM_EACH_D",
+      "budgetItemText": "Dementia (each-d top-up) supplement",
+      "rates": [
+        {
+          "rate": 25,
+          "frequency": 1,
+          "allocationPeriod": "DAY",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "EL_RATE",
+      "budgetItemText": "End of life pathway",
+      "rates": [
+        {
+          "rate": 25000,
+          "frequency": 12,
+          "allocationPeriod": "WEEK",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "ENT_NBO",
+      "budgetItemText": "Enteral feeding supplement - bolus",
+      "rates": [
+        {
+          "rate": 22.36,
+          "frequency": 1,
+          "allocationPeriod": "DAY",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "ENT_NNBO",
+      "budgetItemText": "Enteral feeding supplement - non-bolus",
+      "rates": [
+        {
+          "rate": 25.11,
+          "frequency": 1,
+          "allocationPeriod": "DAY",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "GF_RATE_1",
+      "budgetItemText": "Home support ongoing - grandfathered HCP 1",
+      "rates": [
+        {
+          "rate": 10698,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "GF_RATE_2",
+      "budgetItemText": "Home support ongoing - grandfathered HCP 2",
+      "rates": [
+        {
+          "rate": 18812,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "GF_RATE_3",
+      "budgetItemText": "Home support ongoing - grandfathered HCP 3",
+      "rates": [
+        {
+          "rate": 40946,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "GF_RATE_4",
+      "budgetItemText": "Home support ongoing - grandfathered HCP 4",
+      "rates": [
+        {
+          "rate": 62076,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "HC_ACCOUNT",
+      "budgetItemText": "Home care account balance transfer",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "HM_RATE_H",
+      "budgetItemText": "Home modifications - high",
+      "rates": [
+        {
+          "rate": 15000,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "HM_RATE_L",
+      "budgetItemText": "Home modifications - low",
+      "rates": [
+        {
+          "rate": 500,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "HM_RATE_M",
+      "budgetItemText": "Home modifications - medium",
+      "rates": [
+        {
+          "rate": 2000,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "HM_REMOTE",
+      "budgetItemText": "AT-HM supplement",
+      "rates": [
+        {
+          "rate": 50,
+          "frequency": null,
+          "allocationPeriod": "PERCENTAGE",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "MAN_ADJUST",
+      "budgetItemText": "Manual budget adjustment",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "MAN_ROLL_D",
+      "budgetItemText": "Manual rollover deduction",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "MAN_ROLL_T",
+      "budgetItemText": "Manual rollover topup",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "ON_RATE_1",
+      "budgetItemText": "Home support ongoing - class 1",
+      "rates": [
+        {
+          "rate": 10707,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "ON_RATE_2",
+      "budgetItemText": "Home support ongoing - class 2",
+      "rates": [
+        {
+          "rate": 15997,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "ON_RATE_3",
+      "budgetItemText": "Home support ongoing - class 3",
+      "rates": [
+        {
+          "rate": 21941,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "ON_RATE_4",
+      "budgetItemText": "Home support ongoing - class 4",
+      "rates": [
+        {
+          "rate": 29574,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "ON_RATE_5",
+      "budgetItemText": "Home support ongoing - class 5",
+      "rates": [
+        {
+          "rate": 39574,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "ON_RATE_6",
+      "budgetItemText": "Home support ongoing - class 6",
+      "rates": [
+        {
+          "rate": 48004,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "ON_RATE_7",
+      "budgetItemText": "Home support ongoing - class 7",
+      "rates": [
+        {
+          "rate": 58179,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "ON_RATE_8",
+      "budgetItemText": "Home support ongoing - class 8",
+      "rates": [
+        {
+          "rate": 77709,
+          "frequency": 1,
+          "allocationPeriod": "YEAR",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "OXY_NORM",
+      "budgetItemText": "Oxygen supplement",
+      "rates": [
+        {
+          "rate": 14.11,
+          "frequency": 1,
+          "allocationPeriod": "DAY",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "RC_RATE",
+      "budgetItemText": "Restorative care pathway",
+      "rates": [
+        {
+          "rate": 6000,
+          "frequency": 12,
+          "allocationPeriod": "WEEK",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-01-01"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "ROLLOVER_D",
+      "budgetItemText": "Rollover deduction",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "ROLLOVER_T",
+      "budgetItemText": "Rollover topup",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "VETERANS_C",
+      "budgetItemText": "Veterans supplement",
+      "rates": [
+        {
+          "rate": 11.5,
+          "frequency": null,
+          "allocationPeriod": "PERCENTAGE",
+          "validFrom": "2025-03-01",
+          "validTo": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "budgetItemCode": "WRITE_OFF",
+      "budgetItemText": "Write off",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "WRITE_OF_R",
+      "budgetItemText": "Write off reversal",
+      "rates": []
+    }
+  ],
+  "usageCodes": [
+    {
+      "budgetItemCode": "SERV-0001",
+      "budgetItemText": "General house cleaning",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0002",
+      "budgetItemText": "Laundry services",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0003",
+      "budgetItemText": "Shopping assistance",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0004",
+      "budgetItemText": "Gardening",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0005",
+      "budgetItemText": "Assistance with home maintenance and repairs",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0006",
+      "budgetItemText": "Expenses for home maintenance and repairs",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0007",
+      "budgetItemText": "Meal delivery",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0008",
+      "budgetItemText": "Meal preparation",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0009",
+      "budgetItemText": "Group social support",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0010",
+      "budgetItemText": "Individual social support",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0011",
+      "budgetItemText": "Accompanied activities",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0012",
+      "budgetItemText": "Cultural support",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0013",
+      "budgetItemText": "Digital education and support",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0014",
+      "budgetItemText": "Assistance to maintain personal affairs",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0015",
+      "budgetItemText": "Expenses to maintain personal affairs",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0016",
+      "budgetItemText": "Direct transport",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0017",
+      "budgetItemText": "Indirect transport",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0018",
+      "budgetItemText": "Home support care management",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0019",
+      "budgetItemText": "Home support restorative care management",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0020",
+      "budgetItemText": "Assistance with self-care and activities of daily living",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0021",
+      "budgetItemText": "Assistance with the self-administration of medication",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0022",
+      "budgetItemText": "Continence management (non-clinical)",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0023",
+      "budgetItemText": "Registered nurse clinical care",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0024",
+      "budgetItemText": "Enrolled nurse clinical care",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0025",
+      "budgetItemText": "Nursing assistant clinical care",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0026",
+      "budgetItemText": "Nursing care consumables",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0027",
+      "budgetItemText": "Allied health assistance",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0028",
+      "budgetItemText": "Podiatry",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0029",
+      "budgetItemText": "Social work",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0030",
+      "budgetItemText": "Speech pathology",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0031",
+      "budgetItemText": "Diet or nutrition",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0032",
+      "budgetItemText": "Aboriginal or Torres Strait Islander Health Practitioner assistance",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0033",
+      "budgetItemText": "Aboriginal or Torres Strait Islander Health Worker assistance",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0034",
+      "budgetItemText": "Physiotherapy",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0035",
+      "budgetItemText": "Psychology",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0036",
+      "budgetItemText": "Exercise physiology",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0037",
+      "budgetItemText": "Occupational therapy",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0038",
+      "budgetItemText": "Counselling or psychotherapy",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0039",
+      "budgetItemText": "Music therapy",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0040",
+      "budgetItemText": "Acupuncture",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0041",
+      "budgetItemText": "Chiropractics",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0042",
+      "budgetItemText": "Diversional therapy",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0043",
+      "budgetItemText": "Remedial massage",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0044",
+      "budgetItemText": "Art therapy",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0045",
+      "budgetItemText": "Osteopathy",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0047",
+      "budgetItemText": "Nutrition supports",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0048",
+      "budgetItemText": "Flexible respite",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0049",
+      "budgetItemText": "Community and centre based respite",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0061",
+      "budgetItemText": "Managing body functions",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0062",
+      "budgetItemText": "Self-care products",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0063",
+      "budgetItemText": "Mobility products",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0064",
+      "budgetItemText": "Domestic life products",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0065",
+      "budgetItemText": "Communication and information management products",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0066",
+      "budgetItemText": "Assistive technology prescription and clinical support",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0067",
+      "budgetItemText": "Home modification products",
+      "rates": []
+    },
+    {
+      "budgetItemCode": "SERV-0068",
+      "budgetItemText": "Home modifications prescription and clinical support",
+      "rates": []
+    }
+  ]
+}
