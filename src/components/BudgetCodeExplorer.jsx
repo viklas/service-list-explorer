@@ -3,8 +3,8 @@ import React, { useEffect, useState, useMemo } from "react";
 // --- Rate chip formatting ---
 function formatRate(rateObj) {
   if (!rateObj) return null;
-  const { rate, allocationPeriod } = rateObj;
-  if (allocationPeriod === "PERCENTAGE") return `${rate}%`;
+  const { rate, frequencyPeriod } = rateObj;
+  if (frequencyPeriod === "PERCENTAGE") return `${rate}%`;
   if (rate == null) return null;
   return `$${Number(rate).toLocaleString()}`;
 }
@@ -38,9 +38,10 @@ function BudgetCodeCard({ code, idx, isOpen, onClick }) {
           {firstRate ? (
             <span className="inline-block rounded-full bg-green-100 text-green-800 px-2 py-0.5 text-xs font-semibold ml-2">
               {formatRate(firstRate)}
-              {firstRate.allocationPeriod !== "PERCENTAGE" && (
+              {firstRate.frequencyPeriod !== "PERCENTAGE" && (
                 <span className="ml-1 text-slate-500">
-                  {firstRate.allocationPeriod && `/${firstRate.allocationPeriod.toLowerCase()}`}
+                  {firstRate.frequency && firstRate.frequency !== 1 && <>x{firstRate.frequency} </>}
+                  /{firstRate.frequencyPeriod && firstRate.frequencyPeriod.toLowerCase()}
                 </span>
               )}
             </span>
@@ -71,10 +72,10 @@ function BudgetCodeCard({ code, idx, isOpen, onClick }) {
                   <li key={i} className="flex items-center mb-1">
                     <span className="inline-block rounded-full bg-green-100 text-green-800 px-2 py-0.5 text-xs font-semibold mr-2">
                       {formatRate(r)}
-                      {r.allocationPeriod !== "PERCENTAGE" && (
+                      {r.frequencyPeriod !== "PERCENTAGE" && (
                         <span className="ml-1 text-slate-500">
                           {r.frequency && r.frequency !== 1 && <>x{r.frequency} </>}
-                          /{r.allocationPeriod && r.allocationPeriod.toLowerCase()}
+                          /{r.frequencyPeriod && r.frequencyPeriod.toLowerCase()}
                         </span>
                       )}
                     </span>
@@ -105,15 +106,31 @@ export default function BudgetCodeExplorer() {
   const [openIdx, setOpenIdx] = useState(null);
 
   useEffect(() => {
-    fetch("/data/budget-codes.json")
-      .then((r) => r.json())
-      .then(setData);
+    fetch("/data/fixtures/get-budget-codes.json")
+      .then((res) => res.json())
+      .then((raw) => {
+        let d = null;
+        // Defensive: API might return {statusCode, headers, data: "...json..."}
+        if (raw && typeof raw.data === "string") {
+          try {
+            d = JSON.parse(raw.data);
+          } catch (e) {
+            console.error("Failed to parse .data JSON string:", e, raw.data);
+          }
+        }
+        // If top-level is array-like, just use it
+        if (!d && Array.isArray(raw)) d = { entitlementCodes: raw, usageCodes: [] };
+        // If already object with entitlementCodes, good
+        if (!d && raw.entitlementCodes) d = raw;
+        if (!d) d = { entitlementCodes: [], usageCodes: [] };
+        setData(d);
+      });
   }, []);
 
   const allocationPeriods = useMemo(() => {
     if (!data) return [];
     const list = (data[view] || []).flatMap((c) =>
-      (c.rates || []).map((r) => r.allocationPeriod)
+      (c.rates || []).map((r) => r.frequencyPeriod)
     );
     return ["All", ...Array.from(new Set(list)).filter(Boolean)];
   }, [data, view]);
@@ -131,7 +148,7 @@ export default function BudgetCodeExplorer() {
             c.rates.some(
               (r) =>
                 String(r.rate).toLowerCase().includes(s) ||
-                r.allocationPeriod?.toLowerCase().includes(s)
+                r.frequencyPeriod?.toLowerCase().includes(s)
             ))
       );
     }
@@ -139,7 +156,7 @@ export default function BudgetCodeExplorer() {
       list = list.filter(
         (c) =>
           c.rates &&
-          c.rates.some((r) => r.allocationPeriod === filterPeriod)
+          c.rates.some((r) => r.frequencyPeriod === filterPeriod)
       );
     }
     return list;

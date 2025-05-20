@@ -9,9 +9,33 @@ export default function FundingSourcesExplorer() {
 
   useEffect(() => {
     async function load() {
-      const res = await fetch("/data/funding-sources.json");
-      const data = await res.json();
-      setSources(data);
+      const res = await fetch("/data/fixtures/get-funding-source-list.json");
+      const json = await res.json();
+  
+      // Debugging output
+      // console.log("Raw funding source JSON fetched:", json);
+  
+      if (Array.isArray(json)) {
+        setSources(json);
+      } else if (typeof json.data === "string") {
+        // API returns { statusCode, headers, data: "[...json array...]" }
+        try {
+          const arr = JSON.parse(json.data);
+          if (Array.isArray(arr)) {
+            setSources(arr);
+          } else {
+            setSources([]);
+          }
+        } catch (e) {
+          console.error("Failed to parse .data string in funding sources:", json.data);
+          setSources([]);
+        }
+      } else if (Array.isArray(json.data)) {
+        setSources(json.data);
+      } else {
+        console.warn("Could not detect funding sources array. JSON shape:", json);
+        setSources([]);
+      }
     }
     load();
   }, []);

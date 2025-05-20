@@ -65,14 +65,57 @@ export default function ServiceHierarchyExplorer() {
   const [prices, setPrices] = useState([]);
   const [showTree, setShowTree] = useState(false);
 
-  // --- Data loading and cross-linking
   useEffect(() => {
     Promise.all([
-      fetch("/data/service-list.new.json").then((r) => r.json()),
-      fetch("/data/funding-sources.json").then((r) => r.json()),
-      fetch("/data/section7_care_management.csv")
-        .then((r) => r.text())
-        .then((text) => Papa.parse(text, { header: true, skipEmptyLines: true }).data),
+      // LOAD SERVICES, HANDLING API WRAPPING & STRINGIFIED ARRAYS
+      fetch("/data/fixtures/get-service-list.json")
+        .then((r) => r.json())
+        .then((json) => {
+          // console.log("Raw service-list.json fetched:", json);
+          // Support "data" as stringified array, or other common wrappers
+          if (json && typeof json.data === "string") {
+            try {
+              const arr = JSON.parse(json.data);
+              if (Array.isArray(arr)) {
+                // console.log("Parsed service-list from stringified data field:", arr.length, "items");
+                return arr;
+              }
+            } catch (e) {
+              console.error("Could not parse stringified data array in services", e, json.data);
+            }
+          }
+          if (Array.isArray(json)) return json;
+          if (Array.isArray(json.services)) return json.services;
+          if (Array.isArray(json.data)) return json.data;
+          console.warn("Service list JSON not recognised, defaulting to []", json);
+          return [];
+        }),
+
+      // Everything else is unchanged
+      fetch("/data/fixtures/get-funding-source-list.json")
+        .then((r) => r.json())
+        .then((json) => {
+          // For debugging:
+          // console.log("Raw funding source JSON fetched:", json);
+
+          // Handle various shapes:
+          if (Array.isArray(json)) {
+            return json;
+          } else if (typeof json.data === "string") {
+            try {
+              const arr = JSON.parse(json.data);
+              if (Array.isArray(arr)) return arr;
+            } catch (e) {
+              console.error("Failed to parse .data string in funding sources:", json.data);
+            }
+          } else if (Array.isArray(json.data)) {
+            return json.data;
+          }
+          console.warn("Could not detect funding sources array. JSON shape:", json);
+          return [];
+        }), fetch("/data/section7_care_management.csv")
+          .then((r) => r.text())
+          .then((text) => Papa.parse(text, { header: true, skipEmptyLines: true }).data),
       fetch("/data/section13_restorative_care.csv")
         .then((r) => r.text())
         .then((text) => Papa.parse(text, { header: true, skipEmptyLines: true }).data),
@@ -91,7 +134,7 @@ export default function ServiceHierarchyExplorer() {
         }))
       );
 
-      // Build hierarchy
+      // --- your service grouping code is unchanged ---
       const groups = {};
       services.forEach((svc) => {
         const {
@@ -150,7 +193,7 @@ export default function ServiceHierarchyExplorer() {
         };
       });
 
-      // Cross-link concepts
+      // --- Cross-linking code unchanged ---
       Object.values(groups).forEach((g) =>
         Object.values(g.children).forEach((t) =>
           Object.values(t.children).forEach((svcNode) => {
@@ -355,7 +398,7 @@ export default function ServiceHierarchyExplorer() {
       : false;
     const isSelected = node.id === selectedId;
     const isLeaf = !hasChildren;
-  
+
     return (
       <div style={{ marginLeft: depth * 16 }}>
         <div

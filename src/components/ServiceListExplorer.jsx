@@ -33,9 +33,40 @@ export default function ServiceListExplorer() {
   const [sortAsc, setSortAsc] = useState(true);
 
   useEffect(() => {
-    fetch("/data/service-list.new.json")
+    fetch("/data/fixtures/get-service-list.json")
       .then((res) => res.json())
-      .then(setData);
+      .then((json) => {
+        // console.log("Raw JSON fetched:", json);
+  
+        // Check if there's a 'data' property that is a string (stringified array)
+        if (json && typeof json.data === "string") {
+          try {
+            const parsed = JSON.parse(json.data);
+            if (Array.isArray(parsed)) {
+              // console.log("Parsed data from stringified JSON array:", parsed.length, "items");
+              setData(parsed);
+              return;
+            }
+          } catch (e) {
+            console.error("Failed to parse 'data' string as JSON array:", e, json.data);
+          }
+        }
+  
+        if (Array.isArray(json)) {
+          setData(json);
+        } else if (Array.isArray(json.services)) {
+          setData(json.services);
+        } else if (Array.isArray(json.data)) {
+          setData(json.data);
+        } else {
+          console.warn("Could not detect array. JSON shape:", json);
+          setData([]);
+        }
+      })
+      .catch((e) => {
+        console.error("Failed to load service list JSON:", e);
+        setData([]);
+      });
 
     fetch("/data/service-price-reference.csv")
       .then((res) => res.text())
@@ -55,12 +86,10 @@ export default function ServiceListExplorer() {
 
   const highlightText = (text) => {
     if (!search || !text) return text;
-
     const safeSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const regex = new RegExp(safeSearch, 'gi');
     const parts = [];
     let lastIndex = 0;
-
     let match;
     while ((match = regex.exec(text)) !== null) {
       if (match.index > lastIndex) {
@@ -71,38 +100,34 @@ export default function ServiceListExplorer() {
       );
       lastIndex = regex.lastIndex;
     }
-
     if (lastIndex < text.length) {
       parts.push(text.slice(lastIndex));
     }
-
     return parts;
   };
 
-
+  // Keep your getPrice logic as is (uses serviceText/serviceTypeText)
   const getPrice = (item) => {
     const exactLevel3 = prices.find(p => p.Level === 3 && p.Service.toLowerCase() === item.serviceText?.toLowerCase());
     if (exactLevel3) return { ...exactLevel3, matchType: "Exact (L3)", score: 1, matchedLabel: exactLevel3.Service };
-
     const exactLevel2 = prices.find(p => p.Level === 2 && p.Service.toLowerCase() === item.serviceTypeText?.toLowerCase());
     if (exactLevel2) return { ...exactLevel2, matchType: "Exact (L2)", score: 1, matchedLabel: exactLevel2.Service };
-
     const fuse3 = new Fuse(prices.filter(p => p.Level === 3), { keys: ['Service'], threshold: 0.4 });
     const fuse2 = new Fuse(prices.filter(p => p.Level === 2), { keys: ['Service'], threshold: 0.4 });
-
     const fuzzy3 = fuse3.search(item.serviceText || '')[0];
     if (fuzzy3) return { ...fuzzy3.item, matchType: "Fuzzy (L3)", score: 1 - fuzzy3.score, matchedLabel: fuzzy3.item.Service };
-
     const fuzzy2 = fuse2.search(item.serviceTypeText || '')[0];
     if (fuzzy2) return { ...fuzzy2.item, matchType: "Fuzzy (L2)", score: 1 - fuzzy2.score, matchedLabel: fuzzy2.item.Service };
-
     return null;
   };
 
+  // --- Filter values from the new structure
   const groups = ["All", ...new Set(data.map(d => d.serviceGroupText))];
   const categories = ["All", ...new Set(data.map(d => d.participantContributionCategory))];
   const unitTypes = ["All", ...new Set(data.map(d => d.unitType))];
+  const serviceTypes = ["All", ...new Set(data.map(d => d.serviceTypeText))];
 
+  // --- Universal search and filters
   const filtered = data.filter(item => {
     const matchGroup = group === "All" || item.serviceGroupText === group;
     const matchCategory = category === "All" || item.participantContributionCategory === category;
@@ -157,6 +182,7 @@ export default function ServiceListExplorer() {
     };
   });
 
+  // --- UI (identical to your previous version, only data load logic is changed)
   return (
     <div className="relative p-6 space-y-6 bg-gradient-to-b from-slate-50 to-white min-h-screen">
       <h1 className="text-3xl font-bold text-slate-800">Support at Home - Service List Explorer</h1>
@@ -191,9 +217,7 @@ export default function ServiceListExplorer() {
             onChange={(e) => setGroup(e.target.value)}
           >
             {groups.map((g) => (
-              <option key={g} value={g}>
-                {g}
-              </option>
+              <option key={g} value={g}>{g}</option>
             ))}
           </select>
         </div>
@@ -205,9 +229,7 @@ export default function ServiceListExplorer() {
             onChange={(e) => setCategory(e.target.value)}
           >
             {categories.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
+              <option key={c} value={c}>{c}</option>
             ))}
           </select>
         </div>
@@ -218,10 +240,8 @@ export default function ServiceListExplorer() {
             value={serviceType}
             onChange={(e) => setServiceType(e.target.value)}
           >
-            {["All", ...new Set(data.map((d) => d.serviceTypeText).filter(Boolean))].map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
+            {serviceTypes.map((t) => (
+              <option key={t} value={t}>{t}</option>
             ))}
           </select>
         </div>
@@ -233,9 +253,7 @@ export default function ServiceListExplorer() {
             onChange={(e) => setUnit(e.target.value)}
           >
             {unitTypes.map((u) => (
-              <option key={u} value={u}>
-                {u}
-              </option>
+              <option key={u} value={u}>{u}</option>
             ))}
           </select>
         </div>
@@ -325,24 +343,32 @@ export default function ServiceListExplorer() {
                             <div className="px-6 pb-6 flex flex-col md:flex-row gap-6">
                               <div className="flex-1 space-y-3">
                                 <div className="text-sm text-slate-700">
-                                  <strong>Unit:</strong>{' '}
+                                  <strong>Unit:</strong>{" "}
                                   <span className="inline">
                                     {highlightText(item.unitType)}
                                   </span>
                                 </div>
                                 <div className="text-xs text-slate-400">
-                                  Service ID:{' '}
+                                  Service ID:{" "}
                                   <span className="inline">
                                     {highlightText(item.serviceId)}
                                   </span>
                                 </div>
                                 {item.classifications?.length > 0 && (
                                   <div className="text-sm">
-                                    <strong className="text-slate-700">Classifications:</strong>
+                                    <strong className="text-slate-700">
+                                      Classifications:
+                                    </strong>
                                     <div className="flex flex-wrap gap-2 mt-1">
                                       {item.classifications.map((c, i) => (
-                                        <span key={i} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
-                                          {highlightText(c.classificationText)} <span className="text-[10px]">({highlightText(c.classificationType)})</span>
+                                        <span
+                                          key={i}
+                                          className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs"
+                                        >
+                                          {highlightText(c.classificationText)}{" "}
+                                          <span className="text-[10px]">
+                                            ({highlightText(c.classificationType)})
+                                          </span>
                                         </span>
                                       ))}
                                     </div>
@@ -352,11 +378,29 @@ export default function ServiceListExplorer() {
                               <div className="flex-1 border-l border-slate-100 pl-4 space-y-3">
                                 {item.items?.length > 0 && (
                                   <div>
-                                    <h4 className="font-semibold text-sm text-slate-700 mb-1">🧾 Items</h4>
+                                    <h4 className="font-semibold text-sm text-slate-700 mb-1">
+                                      🧾 Items
+                                    </h4>
                                     <ul className="list-disc list-inside text-sm text-slate-600 space-y-1">
                                       {item.items.map((i, idx) => (
                                         <li key={idx}>
-                                          {highlightText(i.itemText)} <span className="text-xs text-slate-500">({highlightText(i.itemId)})</span> – Units: {i.units.map(u => highlightText(u)).reduce((a, b) => <>{a}, {b}</>)} {i.freeTextRequired && <span className="text-red-600">(free text required)</span>}
+                                          {highlightText(i.itemText)}{" "}
+                                          <span className="text-xs text-slate-500">
+                                            ({highlightText(i.itemId)})
+                                          </span>{" "}
+                                          – Units:{" "}
+                                          {i.units
+                                            .map((u) => highlightText(u))
+                                            .reduce((a, b) => (
+                                              <>
+                                                {a}, {b}
+                                              </>
+                                            ))}
+                                          {i.freeTextRequired && (
+                                            <span className="text-red-600">
+                                              (free text required)
+                                            </span>
+                                          )}
                                         </li>
                                       ))}
                                     </ul>
@@ -364,11 +408,29 @@ export default function ServiceListExplorer() {
                                 )}
                                 {item.wraparoundServices?.length > 0 && (
                                   <div>
-                                    <h4 className="font-semibold text-sm text-slate-700 mb-1">🔄 Wraparound Services</h4>
+                                    <h4 className="font-semibold text-sm text-slate-700 mb-1">
+                                      🔄 Wraparound Services
+                                    </h4>
                                     <ul className="list-disc list-inside text-sm text-slate-600 space-y-1">
                                       {item.wraparoundServices.map((w, idx) => (
                                         <li key={idx}>
-                                          {highlightText(w.wraparoundServiceText)} <span className="text-xs text-slate-500">({highlightText(w.wraparoundServiceId)})</span> – Units: {w.units.map(u => highlightText(u)).reduce((a, b) => <>{a}, {b}</>)} {w.freeTextRequired && <span className="text-red-600">(free text required)</span>}
+                                          {highlightText(w.wraparoundServiceText)}{" "}
+                                          <span className="text-xs text-slate-500">
+                                            ({highlightText(w.wraparoundServiceId)})
+                                          </span>{" "}
+                                          – Units:{" "}
+                                          {w.units
+                                            .map((u) => highlightText(u))
+                                            .reduce((a, b) => (
+                                              <>
+                                                {a}, {b}
+                                              </>
+                                            ))}
+                                          {w.freeTextRequired && (
+                                            <span className="text-red-600">
+                                              (free text required)
+                                            </span>
+                                          )}
                                         </li>
                                       ))}
                                     </ul>
@@ -376,11 +438,19 @@ export default function ServiceListExplorer() {
                                 )}
                                 {item.itemCategories?.length > 0 && (
                                   <div>
-                                    <h4 className="font-semibold text-sm text-slate-700 mb-1">📦 Item Categories</h4>
+                                    <h4 className="font-semibold text-sm text-slate-700 mb-1">
+                                      📦 Item Categories
+                                    </h4>
                                     <ul className="list-disc list-inside text-sm text-slate-600 space-y-1">
                                       {item.itemCategories.map((c, idx) => (
                                         <li key={idx}>
-                                          {highlightText(c.itemCategoryText)} <span className="text-xs text-slate-500">({highlightText(c.itemCategoryCode)})</span> {c.freeTextRequired && <span className="text-red-600">(free text required)</span>}
+                                          {highlightText(c.itemCategoryText)}{" "}
+                                          <span className="text-xs text-slate-500">
+                                            ({highlightText(c.itemCategoryCode)})
+                                          </span>{" "}
+                                          {c.freeTextRequired && (
+                                            <span className="text-red-600">(free text required)</span>
+                                          )}
                                         </li>
                                       ))}
                                     </ul>
@@ -388,11 +458,19 @@ export default function ServiceListExplorer() {
                                 )}
                                 {item.healthProfessionalTypes?.length > 0 && (
                                   <div>
-                                    <h4 className="font-semibold text-sm text-slate-700 mb-1">👩‍⚕️ Health Professionals</h4>
+                                    <h4 className="font-semibold text-sm text-slate-700 mb-1">
+                                      👩‍⚕️ Health Professionals
+                                    </h4>
                                     <ul className="list-disc list-inside text-sm text-slate-600 space-y-1">
                                       {item.healthProfessionalTypes.map((h, idx) => (
                                         <li key={idx}>
-                                          {highlightText(h.healthProfessionalTypeText)} <span className="text-xs text-slate-500">({highlightText(h.healthProfessionalTypeCode)})</span> {h.freeTextRequired && <span className="text-red-600">(free text required)</span>}
+                                          {highlightText(h.healthProfessionalTypeText)}{" "}
+                                          <span className="text-xs text-slate-500">
+                                            ({highlightText(h.healthProfessionalTypeCode)})
+                                          </span>{" "}
+                                          {h.freeTextRequired && (
+                                            <span className="text-red-600">(free text required)</span>
+                                          )}
                                         </li>
                                       ))}
                                     </ul>
