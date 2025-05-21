@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ServiceExplorer from './components/ServiceListExplorer';
+import ItemExplorer from './components/ItemExplorer';
 import ActivitiesExplorer from './components/ActivitiesExplorer';
 import RestorativeExplorer from './components/RestorativeExplorer';
 import FundingSourcesExplorer from './components/FundingSourcesExplorer';
@@ -9,6 +10,7 @@ import BudgetCodeExplorer from './components/BudgetCodeExplorer';
 
 const tabs = [
   { key: 'services', label: 'Service List' },
+  { key: 'items', label: 'Items' },
   { key: 'activities', label: 'Care Management' },
   { key: 'restorative', label: 'Restorative Care Management' },
   { key: 'funding', label: 'Funding Sources' },
@@ -84,6 +86,7 @@ export default function App() {
       {/* Content */}
       <div className="mt-4">
         {activeTab === 'services' && <ServiceExplorer />}
+        {activeTab === 'items' && <ItemExplorer />}
         {activeTab === 'activities' && <ActivitiesExplorer />}
         {activeTab === 'restorative' && <RestorativeExplorer />}
         {activeTab === 'funding' && <FundingSourcesExplorer />}
