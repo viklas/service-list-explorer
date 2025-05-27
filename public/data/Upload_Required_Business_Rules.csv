@@ -12,6 +12,6 @@ Assistive Technology,Equipment and Products,Domestic life products,SERV-0064,Rec
 Assistive Technology,Equipment and Products,Assistive technology prescription and clinical support,SERV-0066,Receipts/Invoices,Mandatory
 Home Modifications ,Home Adjustments,Home modifications prescription and clinical support,SERV-0068,Receipts/Invoices,Mandatory
 Home Modifications ,Home Adjustments,Home modification products,SERV-0067,Receipts/Invoices,Mandatory
-Assistive Technology,Equipment and Products,Assistive technology prescription and clinical support,SERV-0066,Presecription,Conditional (ItemOrWraparound is 'ITEM' and itemDescriptionCode = ATITM 001 (Prescriptions))
-Home Modifications ,Home Adjustments,Home modifications prescription and clinical support,SERV-0068,Presecription,Conditional (if ItemOrWraparound is 'ITEM' and itemDescriptionCode = HMITM 001 (Prescriptions))
+Assistive Technology,Equipment and Products,Assistive technology prescription and clinical support,SERV-0066,Prescription,Conditional (ItemOrWraparound is 'ITEM' and itemDescriptionCode = ATITM 001 (Prescriptions))
+Home Modifications ,Home Adjustments,Home modifications prescription and clinical support,SERV-0068,Prescription,Conditional (if ItemOrWraparound is 'ITEM' and itemDescriptionCode = HMITM 001 (Prescriptions))
 Home Modifications ,Home Adjustments,Home modification products,SERV-0067,Quote,Conditional (if 'itemFirstPayment' field is Y)
