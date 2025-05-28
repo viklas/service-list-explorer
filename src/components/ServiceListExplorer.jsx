@@ -98,7 +98,7 @@ export default function ServiceListExplorer() {
   }, []);
 
   const getUploadRequirement = (serviceId) =>
-  uploadRules.filter(rule => rule.serviceId === serviceId);
+    uploadRules.filter(rule => rule.serviceId === serviceId);
 
   const highlightText = (text) => {
     if (!search || !text) return text;
@@ -201,7 +201,7 @@ export default function ServiceListExplorer() {
   const renderUploadBadge = (serviceId) => {
     const uploads = getUploadRequirement(serviceId);
     if (!uploads.length) return null;
-  
+
     return uploads.map((upload, idx) => (
       <span
         key={`${serviceId}-${idx}`}
@@ -210,6 +210,15 @@ export default function ServiceListExplorer() {
         📎 {upload.requirement} ({upload.condition})
       </span>
     ));
+  };
+
+  // Category-to-badge mapping
+  const getCoContributionRate = (category) => {
+    if (!category) return null;
+    if (category.toLowerCase().includes("clinical")) return "0%";
+    if (category.toLowerCase().includes("independence")) return "5%–50%";
+    if (category.toLowerCase().includes("everyday")) return "17.5%–80%";
+    return null;
   };
 
   return (
@@ -227,7 +236,7 @@ export default function ServiceListExplorer() {
         </a>
         .
       </p>
-  
+
       {/* Filter controls */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 text-sm font-medium text-slate-700">
         {/* Search & Filters */}
@@ -260,7 +269,7 @@ export default function ServiceListExplorer() {
           </select>
         </div>
       </div>
-  
+
       {/* Sort Controls */}
       <div className="flex justify-end gap-4 text-sm text-slate-600">
         <label className="flex items-center gap-2">
@@ -275,7 +284,7 @@ export default function ServiceListExplorer() {
           {sortAsc ? "⬆️ Asc" : "⬇️ Desc"}
         </button>
       </div>
-  
+
       {/* Grouped Services */}
       <div className="space-y-12">
         {groupedSorted.map((group) => (
@@ -310,6 +319,15 @@ export default function ServiceListExplorer() {
                                     )}
                                   </span>
                                 )}
+                                {/* Co Contribution Rate Badge */}
+                                {(() => {
+                                  const rate = getCoContributionRate(item.participantContributionCategory);
+                                  return rate ? (
+                                    <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs ml-2">
+                                      % Contribution Rate: <strong>{rate}</strong>
+                                    </span>
+                                  ) : null;
+                                })()}
                                 {renderUploadBadge(item.serviceId)}
                               </div>
                               <div className="text-sm text-slate-500 italic">
@@ -320,7 +338,7 @@ export default function ServiceListExplorer() {
                               {expandedId === item.serviceId ? "−" : "+"}
                             </span>
                           </button>
-  
+
                           {/* Expanded Details (unchanged) */}
                           {expandedId === item.serviceId && (
                             <div className="px-6 pb-6 flex flex-col md:flex-row gap-6">
@@ -335,7 +353,7 @@ export default function ServiceListExplorer() {
                                 </div>
                                 {/* Additional fields (classifications, etc.) continue here... */}
                               </div>
-  
+
                               {/* Right Column */}
                               <div className="flex-1 border-l border-slate-100 pl-4 space-y-3">
                                 {/* Keep existing expanded content here */}
