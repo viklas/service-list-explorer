@@ -342,21 +342,135 @@ export default function ServiceListExplorer() {
                           {/* Expanded Details (unchanged) */}
                           {expandedId === item.serviceId && (
                             <div className="px-6 pb-6 flex flex-col md:flex-row gap-6">
-                              {/* Left Column */}
                               <div className="flex-1 space-y-3">
                                 <div className="text-sm text-slate-700">
                                   <strong>Unit:</strong>{" "}
-                                  <span>{highlightText(item.unitType)}</span>
+                                  <span className="inline">{highlightText(item.unitType)}</span>
                                 </div>
                                 <div className="text-xs text-slate-400">
-                                  Service ID: <span>{highlightText(item.serviceId)}</span>
+                                  Service ID:{" "}
+                                  <span className="inline">{highlightText(item.serviceId)}</span>
                                 </div>
-                                {/* Additional fields (classifications, etc.) continue here... */}
+                                {item.classifications?.length > 0 && (
+                                  <div className="text-sm">
+                                    <strong className="text-slate-700">Classifications:</strong>
+                                    <div className="flex flex-wrap gap-2 mt-1">
+                                      {item.classifications.map((c, i) => (
+                                        <span
+                                          key={i}
+                                          className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs"
+                                        >
+                                          {highlightText(c.classificationText)}{" "}
+                                          <span className="text-[10px]">
+                                            ({highlightText(c.classificationType)})
+                                          </span>
+                                        </span>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
                               </div>
-
-                              {/* Right Column */}
                               <div className="flex-1 border-l border-slate-100 pl-4 space-y-3">
-                                {/* Keep existing expanded content here */}
+                                {item.items?.length > 0 && (
+                                  <div>
+                                    <h4 className="font-semibold text-sm text-slate-700 mb-1">
+                                      🧾 Items
+                                    </h4>
+                                    <ul className="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                      {item.items.map((i, idx) => (
+                                        <li key={idx}>
+                                          {highlightText(i.itemText)}{" "}
+                                          <span className="text-xs text-slate-500">
+                                            ({highlightText(i.itemId)})
+                                          </span>{" "}
+                                          – Units:{" "}
+                                          {i.units
+                                            .map((u) => highlightText(u))
+                                            .reduce((a, b) => (
+                                              <>
+                                                {a}, {b}
+                                              </>
+                                            ))}
+                                          {i.freeTextRequired && (
+                                            <span className="text-red-600">
+                                              (free text required)
+                                            </span>
+                                          )}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
+                                {item.wraparoundServices?.length > 0 && (
+                                  <div>
+                                    <h4 className="font-semibold text-sm text-slate-700 mb-1">
+                                      🔄 Wraparound Services
+                                    </h4>
+                                    <ul className="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                      {item.wraparoundServices.map((w, idx) => (
+                                        <li key={idx}>
+                                          {highlightText(w.wraparoundServiceText)}{" "}
+                                          <span className="text-xs text-slate-500">
+                                            ({highlightText(w.wraparoundServiceId)})
+                                          </span>{" "}
+                                          – Units:{" "}
+                                          {w.units
+                                            .map((u) => highlightText(u))
+                                            .reduce((a, b) => (
+                                              <>
+                                                {a}, {b}
+                                              </>
+                                            ))}
+                                          {w.freeTextRequired && (
+                                            <span className="text-red-600">
+                                              (free text required)
+                                            </span>
+                                          )}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
+                                {item.itemCategories?.length > 0 && (
+                                  <div>
+                                    <h4 className="font-semibold text-sm text-slate-700 mb-1">
+                                      📦 Item Categories
+                                    </h4>
+                                    <ul className="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                      {item.itemCategories.map((c, idx) => (
+                                        <li key={idx}>
+                                          {highlightText(c.itemCategoryText)}{" "}
+                                          <span className="text-xs text-slate-500">
+                                            ({highlightText(c.itemCategoryCode)})
+                                          </span>{" "}
+                                          {c.freeTextRequired && (
+                                            <span className="text-red-600">(free text required)</span>
+                                          )}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
+                                {item.healthProfessionalTypes?.length > 0 && (
+                                  <div>
+                                    <h4 className="font-semibold text-sm text-slate-700 mb-1">
+                                      👩‍⚕️ Health Professionals
+                                    </h4>
+                                    <ul className="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                      {item.healthProfessionalTypes.map((h, idx) => (
+                                        <li key={idx}>
+                                          {highlightText(h.healthProfessionalTypeText)}{" "}
+                                          <span className="text-xs text-slate-500">
+                                            ({highlightText(h.healthProfessionalTypeCode)})
+                                          </span>{" "}
+                                          {h.freeTextRequired && (
+                                            <span className="text-red-600">(free text required)</span>
+                                          )}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
                               </div>
                             </div>
                           )}
