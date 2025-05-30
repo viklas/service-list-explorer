@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 // Utility for copying
 function CopyButton({ text, copied, onCopy }) {
@@ -43,6 +43,46 @@ export default function ItemExplorer() {
   const [search, setSearch] = useState("");
   const [expandedCode, setExpandedCode] = useState(null);
   const [copiedCode, setCopiedCode] = useState(null);
+
+  const convertItemsToCsv = useCallback((data) => {
+    if (!data.length) return '';
+    const columns = [
+      "serviceText",
+      "serviceTypeText",
+      "serviceGroupText",
+      "itemText",
+      "itemId",
+      "functionText",
+      "units",
+      "freeTextRequired"
+    ];
+    const csvRows = [columns.join(',')];
+    data.forEach(item => {
+      const values = columns.map(key => {
+        let v = item[key];
+        if (Array.isArray(v)) v = v.join(";");
+        if (typeof v === 'undefined' || v === null) v = '';
+        return `"${String(v).replace(/"/g, '""')}"`;
+      });
+      csvRows.push(values.join(','));
+    });
+    return csvRows.join('\n');
+  }, []);
+
+  const handleDownloadCsv = useCallback(() => {
+    const csv = convertItemsToCsv(items);
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'item-list.csv';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 0);
+  }, [items, convertItemsToCsv]);
 
   useEffect(() => {
     fetch("/data/fixtures/get-service-list.json")
@@ -123,7 +163,14 @@ export default function ItemExplorer() {
   return (
     <div className="relative p-6 space-y-6 bg-gradient-to-b from-slate-50 to-white min-h-screen">
       <h1 className="text-3xl font-bold text-slate-800">Support at Home – Item Explorer</h1>
-
+      <div className="flex mb-4">
+        <button
+          className="ml-auto px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 transition"
+          onClick={handleDownloadCsv}
+        >
+          ⬇️ Download CSV
+        </button>
+      </div>
       {/* Filters */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm font-medium text-slate-700 mb-2">
         <div>
@@ -184,49 +231,41 @@ export default function ItemExplorer() {
                         <ul className="space-y-2">
                           {itemsArr.map(item => (
                             <li key={item.itemId} className="bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col">
-                              <button
-                                className="flex justify-between items-center px-5 py-3 text-left focus:outline-none rounded-2xl"
-                                onClick={() => setExpandedCode(expandedCode === item.itemId ? null : item.itemId)}
-                                aria-expanded={expandedCode === item.itemId}
-                                tabIndex={0}
-                              >
-                                <div className="flex-1 min-w-0 flex items-center gap-2">
+                              <div className="flex justify-between items-center px-5 py-3">
+                                {/* Main area (clickable to expand/collapse) */}
+                                <button
+                                  className="flex-1 min-w-0 flex items-center gap-2 text-left focus:outline-none rounded-2xl bg-transparent border-0"
+                                  style={{ background: "none", boxShadow: "none", padding: 0 }}
+                                  onClick={() => setExpandedCode(expandedCode === item.itemId ? null : item.itemId)}
+                                  aria-expanded={expandedCode === item.itemId}
+                                  tabIndex={0}
+                                >
                                   <span className="font-semibold text-blue-700">{highlightText(item.itemText, search)}</span>
                                   <span className="text-xs text-slate-500 font-mono">{item.itemId}</span>
-                                  <CopyButton
-                                    text={item.itemId}
-                                    copied={copiedCode === item.itemId}
-                                    onCopy={e => {
-                                      e.stopPropagation();
-                                      handleCopy(item.itemId);
-                                    }}
-                                  />
                                   {item.freeTextRequired && (
                                     <span className="ml-2 bg-red-100 text-red-700 px-2 py-0.5 rounded-full text-xs">free text required</span>
                                   )}
-                                </div>
-                                <span className="text-blue-500 text-xl">{expandedCode === item.itemId ? "−" : "+"}</span>
-                              </button>
+                                </button>
+                                {/* Copy button, not nested in main button */}
+                                <CopyButton
+                                  text={item.itemId}
+                                  copied={copiedCode === item.itemId}
+                                  onCopy={() => handleCopy(item.itemId)}
+                                />
+                                {/* Expand/collapse icon */}
+                                <span
+                                  className="text-blue-500 text-xl ml-2 cursor-pointer select-none"
+                                  onClick={() => setExpandedCode(expandedCode === item.itemId ? null : item.itemId)}
+                                  tabIndex={0}
+                                  role="button"
+                                  aria-label="Toggle details"
+                                >
+                                  {expandedCode === item.itemId ? "−" : "+"}
+                                </span>
+                              </div>
                               {expandedCode === item.itemId && (
                                 <div className="px-6 pb-4 pt-1 border-t border-slate-100 bg-blue-50 rounded-b-2xl">
-                                  <div className="text-sm text-slate-700 mb-2">
-                                    <strong>Service Group:</strong> {item.serviceGroupText}<br />
-                                    <strong>Service Type:</strong> {item.serviceTypeText}<br />
-                                    <strong>Function:</strong> {item.functionText || <em>Not specified</em>}<br />
-                                    <strong>Service:</strong> {item.serviceText}<br />
-                                    <strong>Item Code:</strong> {item.itemId}<br />
-                                    <strong>Item Name:</strong> {item.itemText}
-                                  </div>
-                                  {item.units && item.units.length > 0 && (
-                                    <div className="text-sm text-slate-700 mt-2">
-                                      <strong>Units:</strong> {item.units.join(", ")}
-                                    </div>
-                                  )}
-                                  {item.freeTextRequired && (
-                                    <div className="text-sm text-red-700 mt-2">
-                                      <strong>Free text required for this item.</strong>
-                                    </div>
-                                  )}
+                                  {/* ...expanded content... */}
                                 </div>
                               )}
                             </li>

@@ -97,6 +97,40 @@ export default function ServiceListExplorer() {
       });
   }, []);
 
+  // CSV conversion and download functions
+  function convertToCsv(rows) {
+    if (!rows.length) return '';
+    const keys = Object.keys(rows[0]).filter(
+      k => !['classifications', 'items', 'wraparoundServices', 'itemCategories', 'healthProfessionalTypes'].includes(k)
+    );
+    const csvRows = [keys.join(',')];
+    rows.forEach(row => {
+      const values = keys.map(k => {
+        let v = row[k];
+        if (typeof v === 'object' && v !== null) v = JSON.stringify(v);
+        if (typeof v === 'undefined' || v === null) v = '';
+        return `"${String(v).replace(/"/g, '""')}"`;
+      });
+      csvRows.push(values.join(','));
+    });
+    return csvRows.join('\n');
+  }
+
+  function handleDownloadCsv() {
+    const csv = convertToCsv(data);
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'service-list.csv';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 0);
+  }
+
   const getUploadRequirement = (serviceId) =>
     uploadRules.filter(rule => rule.serviceId === serviceId);
 
@@ -236,7 +270,14 @@ export default function ServiceListExplorer() {
         </a>
         .
       </p>
-
+      <div className="flex mb-4">
+        <button
+          className="ml-auto px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 transition"
+          onClick={handleDownloadCsv}
+        >
+          ⬇️ Download CSV
+        </button>
+      </div>
       {/* Filter controls */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 text-sm font-medium text-slate-700">
         {/* Search & Filters */}
